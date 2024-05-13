@@ -1,94 +1,165 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    transition: 0.5s;
 }
+
+.center {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 body {
-    width: 100%;
+    background-color: #0e111b;
+    font-family: "Poppins", sans-serif;
+}
+
+.welcome-screen {
+    width: 100vw;
     height: 100vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-}
-body::before {
-    content: "";
-    background-image: url(images/great-wall.jpg);
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    filter: brightness(0.25);
-    z-index: -1;
+    align-items: center;
+    gap: 2rem;
 }
 
-main {
-    width: 1000px;
-    height: 500px;
-    display: flex;
-    gap: 15px;
+.welcome-screen h1 {
+    color: white;
+    font-size: 2rem;
 }
 
-.card {
-    width: 20%;
-    border-radius: 15px;
+.start-btn,
+.next-btn {
+    background-color: #00a3ff;
+    font-size: 2rem;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 1rem;
     cursor: pointer;
-    overflow: hidden;
-}
-.card:hover {
-    width: 80%;
+    font-weight: 600;
+    color: #000;
+    transition: all 0.3s;
 }
 
-.card .image {
+.start-btn:hover {
+    transform: scale(1.02) translateY(-2px);
+}
+
+.quiz-screen {
+    /* background-color: red; */
+    width: 800px;
+    margin: 80px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem;
+}
+
+.question {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.ans-btn {
+    background-color: #20232e;
+    font-size: 1.5rem;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.card:hover .image {
-    transform: scale(1.2);
-}
-
-.card .background {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    pointer-events: none;
-    filter: brightness(0.25);
-    opacity: 0;
-}
-.card:hover .background {
-    opacity: 1;
+    margin-bottom: 1rem;
+    color: white;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 2px solid #384052;
+    border-bottom: 5px solid #384052;
+    text-align: left;
+    padding: 20px 30px;
+    font-weight: 500;
+    transition: all 0.5s;
 }
 
-.card .layer {
-    width: 100%;
-    height: 50%;
-    margin-top: -250px;
-    position: relative;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+.ans-btn:hover {
+    transform: scale(1.01) translateY(-2px);
+    border-bottom: 8px solid #384052;
 }
 
-.card .layer .info {
-    width: 260px;
-    position: absolute;
-    bottom: 10px;
-    padding: 20px;
-    opacity: 0;
+.correct-ans {
+    background-color: #7ef190;
+    color: #000;
+    border-color: #50d57a;
 }
-.card:hover .layer .info {
-    opacity: 1;
+
+.correct-ans:hover {
+    border-color: #50d57a;
 }
-.info p {
-    color: rgba(255, 255, 255, 0.75);
-    margin-top: 5px;
+
+.wrong-ans {
+    background-color: #e66f9e;
+    color: #000;
+    border-color: #de4670;
 }
+
+.wrong-ans:hover {
+    border-color: #de4670;
+}
+
+.next-btn {
+    display: none;
+}
+
+.ans-btn:disabled {
+    cursor: no-drop;
+}
+
+.score {
+    color: #ff9601;
+    font-weight: 600;
+}
+
+/* Existing CSS */
+
+/* Add media queries for smartphones */
+@media only screen and (max-width: 600px) 
+{
+    .welcome-screen {
+        padding: 0 20px;
+    }
+
+    .welcome-screen h1 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .start-btn,
+    .next-btn {
+        font-size: 1.5rem;
+        padding: 10px 20px;
+    }
+
+    .quiz-screen {
+        width: 100%;
+        margin: 50px auto;
+        padding: 1rem;
+    }
+
+    .question {
+        font-size: 1.5rem;
+    }
+
+    .ans-btn {
+        font-size: 1.2rem;
+        padding: 15px 20px;
+    }
+
+    .score {
+        font-size: 1rem;
+        text-align: center;
+    }
+}
+
