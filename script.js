@@ -295,7 +295,7 @@ function authenticate() {
             const secondPassword = prompt("Masukkan kata sandi kedua:");
 
             // Ganti 'password123' dengan kata sandi yang diinginkan
-            if (secondPassword === "bernasX.2") {
+            if (secondPassword === "bernasX.3") {
                 // Jika kedua kata sandi benar, lanjutkan ke situs web
                 secondPasswordEntered = true;
                 unlockWebsite();
