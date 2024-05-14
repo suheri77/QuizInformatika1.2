@@ -295,7 +295,7 @@ function authenticate() {
             const secondPassword = prompt("Masukkan kata sandi kedua:");
 
             // Ganti 'password123' dengan kata sandi yang diinginkan
-            if (secondPassword === "bernasX.1") {
+            if (secondPassword === "bernasX.2") {
                 // Jika kedua kata sandi benar, lanjutkan ke situs web
                 secondPasswordEntered = true;
                 unlockWebsite();
@@ -324,3 +324,12 @@ function unlockWebsite() {
 document.addEventListener("DOMContentLoaded", function() {
     authenticate();
 });
+
+
+document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+        alert("Screenshot tidak diizinkan!");
+        // Anda bisa menyembunyikan konten di sini jika diperlukan
+    }
+});
+
