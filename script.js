@@ -177,6 +177,8 @@ const questions = [
 
 let currentQuestionIndex = 0;
 let userScore = 0;
+let restartAttempts = 0;
+const maxRestarts = 3;
 
 const startButtonEl = document.querySelector(".start-btn");
 const welcomeScreenEl = document.querySelector(".welcome-screen");
@@ -188,14 +190,18 @@ const nextButtonEl = document.querySelector(".next-btn");
 startButtonEl.addEventListener("click", startQuiz);
 
 function startQuiz() {
-    welcomeScreenEl.style.display = "none";
-    // quizScreenEl.style.display = "block";
-    quizScreenEl.style.display = "flex";
-    currentQuestionIndex = 0;
-    userScore = 0;
-    nextButtonEl.innerHTML = "Next";
-    nextButtonEl.style.display = "none";
-    displayQuestion();
+    if (restartAttempts < maxRestarts) {
+        welcomeScreenEl.style.display = "none";
+        quizScreenEl.style.display = "flex";
+        currentQuestionIndex = 0;
+        userScore = 0;
+        nextButtonEl.innerHTML = "Next";
+        nextButtonEl.style.display = "none";
+        displayQuestion();
+    } else {
+        alert("You have reached the maximum number of restarts. Please re-authenticate.");
+        authenticateNewPassword();
+    }
 }
 
 function displayQuestion() {
@@ -211,8 +217,6 @@ function displayQuestion() {
             buttonEl.dataset.correctAns = answer.correct;
         }
 
-        // console.log(buttonEl);
-
         buttonEl.addEventListener("click", checkAnswer);
     });
 }
@@ -221,7 +225,6 @@ function checkAnswer(e) {
     const selectedButton = e.target;
     if (selectedButton.dataset.correctAns) {
         userScore++;
-        console.log(userScore);
         selectedButton.classList.add("correct-ans");
     } else {
         selectedButton.classList.add("wrong-ans");
@@ -231,7 +234,7 @@ function checkAnswer(e) {
         if (button.dataset.correctAns === "true") {
             button.classList.add("correct-ans");
         }
-        button.disabled = "true";
+        button.disabled = true;
     });
 
     nextButtonEl.style.display = "block";
@@ -240,8 +243,8 @@ function checkAnswer(e) {
 function displayResult() {
     resetContainer();
     questionEl.innerHTML = `Quiz is Completed! <br> Your Score: <span class="score">${userScore}/${questions.length}</span>`;
-
     nextButtonEl.innerHTML = "Restart Quiz";
+    restartAttempts++;
 }
 
 function nextQuestion() {
@@ -268,16 +271,15 @@ function resetContainer() {
 }
 
 function authenticate() {
-    let passwordAttempts = 3; // Menetapkan jumlah percobaan maksimum
-    const delayTime = 3000; // Waktu penundaan dalam milidetik (di sini, 3000 milidetik = 3 detik)
+    let passwordAttempts = 3;
+    const delayTime = 3000;
     let firstPasswordEntered = false;
     let secondPasswordEntered = false;
 
-    while (passwordAttempts > 0) { // Loop selama masih ada percobaan tersisa
+    while (passwordAttempts > 0) {
         if (!firstPasswordEntered) {
             const firstPassword = prompt("Masukkan kata sandi pertama:");
 
-            // Ganti 'password123' dengan kata sandi yang diinginkan
             if (firstPassword === "bernasX") {
                 firstPasswordEntered = true;
                 alert("Kata sandi pertama benar. Masukkan kata sandi kedua.");
@@ -287,26 +289,85 @@ function authenticate() {
 
                 if (passwordAttempts === 0) {
                     alert("Anda telah mencapai jumlah maksimum percobaan. Silakan coba lagi dalam beberapa detik.");
-                    setTimeout(authenticate, delayTime); // Menunggu beberapa detik sebelum memanggil kembali fungsi authenticate()
+                    setTimeout(authenticate, delayTime);
                     return;
                 }
             }
         } else if (!secondPasswordEntered) {
             const secondPassword = prompt("Masukkan kata sandi kedua:");
 
-            // Ganti 'password123' dengan kata sandi yang diinginkan
             if (secondPassword === "bernasX.3") {
-                // Jika kedua kata sandi benar, lanjutkan ke situs web
                 secondPasswordEntered = true;
                 unlockWebsite();
-                return; // Keluar dari fungsi setelah kedua kata sandi benar
+                return;
             } else {
                 passwordAttempts--;
                 alert("Kata sandi kedua salah. Sisa percobaan: " + passwordAttempts);
 
                 if (passwordAttempts === 0) {
                     alert("Anda telah mencapai jumlah maksimum percobaan. Silakan coba lagi dalam beberapa detik.");
-                    setTimeout(authenticate, delayTime); // Menunggu beberapa detik sebelum memanggil kembali fungsi authenticate()
+                    setTimeout(authenticate, delayTime);
+                    return;
+                }
+            }
+        }
+    }
+}
+
+function authenticateNewPassword() {
+    let passwordAttempts = 3;
+    const delayTime = 3000;
+    let firstPasswordEntered = false;
+    let secondPasswordEntered = false;
+    let thirdPasswordEntered = false;
+
+    while (passwordAttempts > 0) {
+        if (!firstPasswordEntered) {
+            const firstPassword = prompt("Masukkan kata sandi baru pertama:");
+
+            if (firstPassword === "newPassword1") {
+                firstPasswordEntered = true;
+                alert("Kata sandi pertama benar. Masukkan kata sandi kedua.");
+            } else {
+                passwordAttempts--;
+                alert("Kata sandi pertama salah. Sisa percobaan: " + passwordAttempts);
+
+                if (passwordAttempts === 0) {
+                    alert("Anda telah mencapai jumlah maksimum percobaan. Silakan coba lagi dalam beberapa detik.");
+                    setTimeout(authenticateNewPassword, delayTime);
+                    return;
+                }
+            }
+        } else if (!secondPasswordEntered) {
+            const secondPassword = prompt("Masukkan kata sandi baru kedua:");
+
+            if (secondPassword === "newPassword2") {
+                secondPasswordEntered = true;
+                alert("Kata sandi kedua benar. Masukkan kata sandi ketiga.");
+            } else {
+                passwordAttempts--;
+                alert("Kata sandi kedua salah. Sisa percobaan: " + passwordAttempts);
+
+                if (passwordAttempts === 0) {
+                    alert("Anda telah mencapai jumlah maksimum percobaan. Silakan coba lagi dalam beberapa detik.");
+                    setTimeout(authenticateNewPassword, delayTime);
+                    return;
+                }
+            }
+        } else if (!thirdPasswordEntered) {
+            const thirdPassword = prompt("Masukkan kata sandi baru ketiga:");
+
+            if (thirdPassword === "newPassword3") {
+                thirdPasswordEntered = true;
+                unlockWebsite();
+                return;
+            } else {
+                passwordAttempts--;
+                alert("Kata sandi ketiga salah. Sisa percobaan: " + passwordAttempts);
+
+                if (passwordAttempts === 0) {
+                    alert("Anda telah mencapai jumlah maksimum percobaan. Silakan coba lagi dalam beberapa detik.");
+                    setTimeout(authenticateNewPassword, delayTime);
                     return;
                 }
             }
@@ -315,21 +376,11 @@ function authenticate() {
 }
 
 function unlockWebsite() {
-    // Tambahkan kode untuk menghilangkan penguncian situs web
-    // Contoh:
     document.body.classList.remove("locked");
+    restartAttempts = 0;
 }
 
-// Panggil fungsi autentikasi saat dokumen dimuat
 document.addEventListener("DOMContentLoaded", function() {
     authenticate();
-});
-
-
-document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-        alert("Screenshot tidak diizinkan!");
-        // Anda bisa menyembunyikan konten di sini jika diperlukan
-    }
 });
 
