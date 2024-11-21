@@ -116,6 +116,10 @@ const questions = [
         ],
     },
 
+
+    ];
+
+
 let currentQuestionIndex = 0;
 let userScore = 0;
 let restartAttempts = 0;
@@ -213,8 +217,8 @@ function resetContainer() {
 
 // Passwords list
 const passwords = [
-    { first: "sdx", second: "5" },
-   
+    { first: "s", second: "5" },
+  
     // Add more passwords as needed
 ];
 
@@ -279,7 +283,7 @@ function authenticateNewPassword() {
         { 
         first: "newPassword1", 
         second: "newPassword2", 
-        third: "newPassword3" },
+        }
         // Add more password sets as needed
     ];
 
