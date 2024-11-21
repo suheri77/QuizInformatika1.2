@@ -119,7 +119,7 @@ const questions = [
 let currentQuestionIndex = 0;
 let userScore = 0;
 let restartAttempts = 0;
-const maxRestarts = 2;
+const maxRestarts = 1;
 
 const startButtonEl = document.querySelector(".start-btn");
 const welcomeScreenEl = document.querySelector(".welcome-screen");
